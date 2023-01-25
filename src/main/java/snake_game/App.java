@@ -18,7 +18,8 @@ public class App extends Application {
         var javafxVersion = SystemInfo.javafxVersion();
 
         var label = new Label("Hello, JavaFX " + javafxVersion + ", running on Java " + javaVersion + ".");
-        var scene = new Scene(new StackPane(label), 640, 480);
+        var scene = new Scene(new StackPane(label), 704, 704); // 44 x 44 pixels per square
+        stage.setTitle("Snake Game");
         stage.setScene(scene);
         stage.show();
     }
@@ -26,5 +27,4 @@ public class App extends Application {
     public static void main(String[] args) {
         launch();
     }
-
 }

@@ -3,6 +3,11 @@ public class Board {
     static final int ROWS = 16;
     static final int COLUMNS = 16;
     public char[][] board;
+    /* ' ' = empty
+     * 's' = snake
+     * 'a' = apple
+     * 'e' = snake has just eaten apple
+     */
 
     public Board() {
         board = new char[ROWS][COLUMNS];
@@ -31,14 +36,15 @@ public class Board {
         return boardString;
     }
 
-    public String randomizeApple() {
-      String location = "[][]";
-      int row = (int)(Math.random() * ROWS); // location 1
-      int column = (int)(Math.random() * COLUMNS); // location 4
-      // location = location.substring(0, 1) + row + location.substring(1, 3) + column + location.substring(3);
-      Apple a = new Apple(row, column);
-
-      return location;
+    public void randomizeApple() {
+      int row = (int)(Math.random() * ROWS);
+      int column = (int)(Math.random() * COLUMNS);
+      while (board[row][column] == 's') {
+        row = (int)(Math.random() * ROWS);
+        column = (int)(Math.random() * COLUMNS);
+      }
+      board[row][column] = 'a';
+      Apple a = new Apple(row, column, board);
     }
     
 }
