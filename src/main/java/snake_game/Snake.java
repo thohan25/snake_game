@@ -2,53 +2,42 @@ package snake_game;
 
 public class Snake {
 
-    private char[][] board;
-    private int length = 3;
-    private int[][] position = {{8, 3}, {8, 2}, {8, 1}};
+    public int[][] indices; // x and y coordinates of each snake body segment, tail comes first
+    public char facing; // N/S/E/W
 
-    public Snake(char[][] b) {
-        board = b;
+    public Snake() {
+        indices = new int[][] {{1, 7}, {2, 7}, {3, 7}};
+        facing = 'E';
     }
 
-    private void move() {
-        // int[][] location = findHeadTail();
-        // if (left) {
-            if (position[0][1] == 0) {
-                App.gameOver();
-            }
-            board[position[0][0]][position[0][1] - 1] = 'h';
-            for (int i = 1; i < position.length - 1; i++) {
-                board[position[i][0]][position[i][1]] = board[position[i+1][0]][position[i+1][1]];
-                position[i][0] = position[i+1][0];
-                position[i][1] = position[i+1][1];
-            }
-        // }
+    public void checkFacing() {
+        // read arrow key input, do not allow snake to turn into itself
     }
 
-    private void eatingApple() {
-        length++;
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[i].length; j++) {
-                if (board[i][j] == 'e') {
-                    board[i][j] = 'h';
-                }
-            }
+    public int[][] move() {
+        for (int i = 0; i < indices.length-1; i++) {
+            indices[i] = indices[i+1]; // moves all segments up by one
         }
+
+        switch (facing) {
+            case 'N': indices[indices.length-1][1]++;
+            case 'S': indices[indices.length-1][1]--;
+            case 'E': indices[indices.length-1][0]++;
+            case 'W': indices[indices.length-1][0]--;
+        } // moves the head in the direction facing
+
+        return indices;
     }
 
-    // private int[][] findHeadTail() {
-    //     int[][] location = new int[2][2];
+
+    // private void eatingApple() {
+    //     length++;
     //     for (int i = 0; i < board.length; i++) {
     //         for (int j = 0; j < board[i].length; j++) {
-    //             if (board[i][j] == 'h') {
-    //                 location[0][0] = i;
-    //                 location[0][1] = j;
-    //             } else if (board[i][j] == 't') {
-    //                 location[1][0] = i;
-    //                 location[1][1] = j;
+    //             if (board[i][j] == 'e') {
+    //                 board[i][j] = 'h';
     //             }
     //         }
     //     }
-    //     return location;
     // }
 }

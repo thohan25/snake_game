@@ -2,8 +2,8 @@ package snake_game;
 
 public class Board {
 
-    static final int ROWS = 17;
-    static final int COLUMNS = 17;
+    static final int ROWS = 15;
+    static final int COLUMNS = 15;
     public char[][] board;
     /* ' ' = empty
      * 's' = snake

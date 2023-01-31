@@ -13,7 +13,7 @@ public class Apple {
     }
 
     public void eaten() {
-
+        
     }
     
 }
