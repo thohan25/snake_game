@@ -14,7 +14,7 @@ public class Snake {
         // read arrow key input, do not allow snake to turn into itself
     }
 
-    public int[][] Move() {
+    public int[][] move() {
         for (int i = 0; i < indices.length-1; i++) {
             indices[i] = indices[i+1]; // moves all segments up by one
         }
@@ -29,5 +29,16 @@ public class Snake {
 
         return indices;
     }
-    
+
+
+    // private void eatingApple() {
+    //     length++;
+    //     for (int i = 0; i < board.length; i++) {
+    //         for (int j = 0; j < board[i].length; j++) {
+    //             if (board[i][j] == 'e') {
+    //                 board[i][j] = 'h';
+    //             }
+    //         }
+    //     }
+    // }
 }
