@@ -20,10 +20,11 @@ public class Snake {
         }
 
         switch (facing) {
-            case 'N': indices[indices.length-1][1]++;
-            case 'S': indices[indices.length-1][1]--;
-            case 'E': indices[indices.length-1][0]++;
-            case 'W': indices[indices.length-1][0]--;
+            case 'N': indices[indices.length-1] = new int[] {indices[indices.length-2][0], indices[indices.length-2][1]++};
+            case 'S': indices[indices.length-1] = new int[] {indices[indices.length-2][0], indices[indices.length-2][1]--};
+            case 'E': indices[indices.length-1] = new int[] {indices[indices.length-2][0]++, indices[indices.length-2][1]};
+            case 'W': indices[indices.length-1] = new int[] {indices[indices.length-2][0]--, indices[indices.length-2][1]};
+            break;
         } // moves the head in the direction facing
 
         return indices;
