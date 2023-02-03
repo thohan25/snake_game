@@ -1,4 +1,10 @@
 package snake_game;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+import javafx.scene.layout.GridPane;
 
 public class Snake {
 
@@ -10,8 +16,23 @@ public class Snake {
         facing = 'E';
     }
 
-    public void checkFacing() {
-        // read arrow key input, do not allow snake to turn into itself
+    public void checkFacing(GridPane grid) {
+        grid.setOnKeyPressed(e -> {
+            switch (e.getCode()) {
+            case UP:
+               facing = 'N';
+               break;
+            case DOWN:
+                facing = 'S';
+               break;
+            case LEFT:
+            facing = 'W';
+               break;
+            case RIGHT:
+            facing = 'E';
+               break;
+            }
+         });
     }
 
     public int[][] move() {

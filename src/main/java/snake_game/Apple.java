@@ -1,5 +1,4 @@
 package snake_game;
-
 public class Apple {
 
     private int row;
