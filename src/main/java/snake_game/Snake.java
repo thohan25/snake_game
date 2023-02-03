@@ -20,16 +20,16 @@ public class Snake {
         grid.setOnKeyPressed(e -> {
             switch (e.getCode()) {
             case UP:
-               
+               facing = 'N';
                break;
             case DOWN:
-               
+                facing = 'S';
                break;
             case LEFT:
-               
+            facing = 'W';
                break;
             case RIGHT:
-               
+            facing = 'E';
                break;
             }
          });
