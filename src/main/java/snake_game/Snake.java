@@ -1,10 +1,10 @@
 package snake_game;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
-import javafx.scene.layout.Pane;
-import javafx.scene.shape.Circle;
+import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.scene.layout.GridPane;
 
 public class Snake {
 
@@ -20,16 +20,16 @@ public class Snake {
         grid.setOnKeyPressed(e -> {
             switch (e.getCode()) {
             case UP:
-               moveUp();
+               
                break;
             case DOWN:
-               moveDown();
+               
                break;
             case LEFT:
-               moveLeft();
+               
                break;
             case RIGHT:
-               moveRight();
+               
                break;
             }
          });
