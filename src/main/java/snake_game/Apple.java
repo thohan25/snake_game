@@ -12,7 +12,8 @@ public class Apple {
     }
 
     public void eaten() {
-        
+        board[row][column] = 'e';
+        Snake.eatingApple(row, column);
     }
     
 }

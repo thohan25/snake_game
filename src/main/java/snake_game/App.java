@@ -15,16 +15,16 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) {
-        var javaVersion = SystemInfo.javaVersion();
-        var javafxVersion = SystemInfo.javafxVersion();
+        SystemInfo.javaVersion();
+        SystemInfo.javafxVersion();
 
         final int BOARD_SIZE = 15;
 
-        Scene scene = new Scene(gameBoard, 690, 690);
+        Scene scene = new Scene(gameBoard, 675, 675);
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
 
-                Rectangle tile = new Rectangle(46, 46);
+                Rectangle tile = new Rectangle(45, 45);
                 if (i % 2 == j % 2) {
                     tile.setFill(Color.GREENYELLOW);
                 } else {
@@ -48,7 +48,6 @@ public class App extends Application {
 
     public void changeTile(char type, int row, int column) {
         Rectangle tile = new Rectangle(45, 45);
-        tile.setStroke(Color.BLACK);
         switch (type) {
             case 's':
                 tile.setFill(Color.BLUE);
@@ -57,7 +56,11 @@ public class App extends Application {
                 tile.setFill(Color.RED);
                 break;
             case 'e':
-                tile.setFill(Color.GREENYELLOW);
+                if (row % 2 == column % 2) {
+                    tile.setFill(Color.GREENYELLOW);
+                } else {
+                    tile.setFill(Color.GREEN);
+                }
                 break;
         }
         

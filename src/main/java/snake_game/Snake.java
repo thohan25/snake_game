@@ -5,6 +5,7 @@ public class Snake {
 
     public int[][] indices; // x and y coordinates of each snake body segment, tail comes first
     public char facing; // N/S/E/W
+    final int BOARD_SIZE = 15;
 
     public Snake() {
         indices = new int[][] {{7, 1}, {7, 2}, {7, 3}};
@@ -45,6 +46,18 @@ public class Snake {
             break;
         } // moves the head in the direction facing
 
+        // Board.snakePositions(this);
         return indices;
+    }
+
+    public void eatingApple(int row, int column) {
+        int[][] newIndices = new int[indices.length+1][];
+        for (int i = 0; i < BOARD_SIZE; i++) {
+            for (int j = 0; j < BOARD_SIZE; j++) {
+                newIndices[i][j] = indices[i][j];
+            }
+        }
+        newIndices[indices.length-1][0] = row;
+        newIndices[indices.length-1][1] = column;
     }
 }
