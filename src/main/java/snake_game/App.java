@@ -14,6 +14,8 @@ import javafx.scene.paint.Color;
  */
 public class App extends Application {
 
+    GridPane gameBoard = new GridPane();
+
     @Override
     public void start(Stage stage) {
         var javaVersion = SystemInfo.javaVersion();
@@ -21,7 +23,6 @@ public class App extends Application {
 
         final int BOARD_SIZE = 15;
 
-        GridPane gameBoard = new GridPane();
         Scene scene = new Scene(gameBoard, 690, 690);
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
@@ -41,8 +42,29 @@ public class App extends Application {
         stage.show();
     }
 
-    public static void gameOver() {
+    public void changeTile(char type, int row, int column) {
+        Rectangle tile = new Rectangle(45, 45);
+        tile.setStroke(Color.BLACK);
+        switch (type) {
+            case 's':
+                tile.setFill(Color.BLUE);
+                break;
+            case 'a':
+                tile.setFill(Color.RED);
+                break;
+            case 'e':
+                tile.setFill(Color.GREENYELLOW);
+                break;
+        }
+        
+        gameBoard.getChildren().addAll(tile);
 
+        GridPane.setRowIndex(tile, row);
+        GridPane.setColumnIndex(tile, column);
+    }
+
+    public static void gameOver() {
+        
     }
 
     public static void main(String[] args) {
