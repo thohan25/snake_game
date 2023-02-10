@@ -2,13 +2,10 @@ package snake_game;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 /**
  * JavaFX App
  */
@@ -26,9 +23,12 @@ public class App extends Application {
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
 
-                Rectangle tile = new Rectangle(45, 45);
-                tile.setFill(Color.GREENYELLOW);
-                tile.setStroke(Color.BLACK);
+                Rectangle tile = new Rectangle(46, 46);
+                if (i % 2 == j % 2) {
+                    tile.setFill(Color.GREENYELLOW);
+                } else {
+                    tile.setFill(Color.GREEN);
+                }
                 
                 gameBoard.getChildren().addAll(tile);
 
@@ -41,8 +41,8 @@ public class App extends Application {
         stage.show();
     }
 
-    public static void gameOver() {
-
+    public static void gameOver(Scene scene) {
+        scene.setFill(Color.WHITE);
     }
 
     public static void main(String[] args) {

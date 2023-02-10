@@ -1,9 +1,4 @@
 package snake_game;
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
 import javafx.scene.layout.GridPane;
 
 public class Snake {
@@ -20,17 +15,19 @@ public class Snake {
         grid.setOnKeyPressed(e -> {
             switch (e.getCode()) {
             case UP:
-               facing = 'N';
-               break;
+                facing = 'N';
+                break;
             case DOWN:
                 facing = 'S';
-               break;
+                break;
             case LEFT:
-            facing = 'W';
-               break;
+                facing = 'W';
+                break;
             case RIGHT:
-            facing = 'E';
-               break;
+                facing = 'E';
+                break;
+            default:
+                break;
             }
          });
     }
