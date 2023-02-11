@@ -1,17 +1,11 @@
 package snake_game;
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
-import javafx.scene.layout.GridPane;
 
 public class Board {
 
   static final int ROWS = 15;
   static final int COLUMNS = 15;
   public char[][] board;
-  static Snake s = new Snake();
+  Snake s = new Snake();
   /*
    * ' ' = empty
    * 's' = snake
@@ -60,22 +54,17 @@ public class Board {
       column = (int) (Math.random() * COLUMNS);
     }
     board[row][column] = 'a';
-    Apple a = new Apple(row, column, board);
+    new Apple(row, column, board);
   }
 
   public void snakePositions(Snake s) {
     board[s.indices[0][0]][s.indices[0][1]] = ' ';
-    s.move();
     board[s.indices[s.indices.length-1][0]][s.indices[s.indices.length-1][1]] = 's';
-    
   }
 
-  // public static void main(String[] args) {
-  //   Board b = new Board();
-  //   b.randomizeApple();
-  //   System.out.println(b);
-  //   b.snakePositions(s);
-  //   System.out.println(b);
-  // }
+  public static void main(String[] args) {
+    Board b = new Board();
+    b.randomizeApple();
+  }
 
 }
