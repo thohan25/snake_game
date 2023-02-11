@@ -1,17 +1,57 @@
 package snake_game;
+import javafx.animation.AnimationTimer;
+import javafx.beans.binding.BooleanBinding;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.layout.GridPane;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.paint.Color;
 
 public class Snake {
 
     public int[][] indices; // x and y coordinates of each snake body segment, tail comes first
     public char facing; // N/S/E/W
+    public Rectangle[] segments;
     final int BOARD_SIZE = 15;
+    BooleanProperty upPressed = new SimpleBooleanProperty();
+    BooleanProperty downPressed = new SimpleBooleanProperty();
+    BooleanProperty leftPressed = new SimpleBooleanProperty();
+    BooleanProperty rightPressed = new SimpleBooleanProperty();
+
+    BooleanBinding keyDown = upPressed.or(downPressed).or(leftPressed).or(rightPressed);
 
     public Snake() {
-        indices = new int[][] {{7, 1}, {7, 2}, {7, 3}};
-        facing = 'E';
+        indices = new int[][] {{7, 3}, {7, 2}, {7, 1}};
+        segments = new Rectangle[3];
+
+        segments[0] = new Rectangle(45, 45);
+        segments[0].setFill(Color.BLUE);
+        segments[1] = new Rectangle(45, 45);
+        segments[1].setFill(Color.BLUE);
+        segments[2] = new Rectangle(45, 45);
+        segments[2].setFill(Color.BLUE);
     }
 
+    AnimationTimer timer = new AnimationTimer() {
+        public void handle(long timestamp) {
+            if (upPressed.get()) {
+                
+            }
+
+            if (downPressed.get()) {
+                
+            }
+
+            if (leftPressed.get()) {
+                
+            }
+
+            if (rightPressed.get()) {
+                
+            }
+        }
+    };
+    
     public void checkFacing(GridPane grid) {
         grid.setOnKeyPressed(e -> {
             switch (e.getCode()) {

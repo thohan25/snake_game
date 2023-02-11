@@ -40,18 +40,21 @@ public class App extends Application {
         stage.setTitle("Snake Game");
         stage.setScene(scene);
         stage.show();
+
+        Snake snake = new Snake();
+
+        gameBoard.add(snake.segments[0], 3, 7);
+        gameBoard.add(snake.segments[1], 2, 7);
+        gameBoard.add(snake.segments[2], 1, 7);
     }
 
     public static void gameOver(Scene scene) {
         scene.setFill(Color.WHITE);
     }
 
-    public void changeTile(char type, int row, int column) { // types: s = snake, a = apple, e = empty
+    public void changeTile(char type, int row, int column) { // types: a = apple, e = empty
         Rectangle tile = new Rectangle(45, 45);
         switch (type) {
-            case 's':
-                tile.setFill(Color.BLUE);
-                break;
             case 'a':
                 tile.setFill(Color.RED);
                 break;
