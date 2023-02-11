@@ -46,7 +46,7 @@ public class App extends Application {
         scene.setFill(Color.WHITE);
     }
 
-    public void changeTile(char type, int row, int column) {
+    public void changeTile(char type, int row, int column) { // types: s = snake, a = apple, e = empty
         Rectangle tile = new Rectangle(45, 45);
         tile.setStroke(Color.BLACK);
         switch (type) {
