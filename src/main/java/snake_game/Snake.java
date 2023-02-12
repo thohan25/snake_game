@@ -7,10 +7,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
 
-public class Snake {
+public class Snake extends App {
 
     public int[][] indices; // x and y coordinates of each snake body segment, tail comes first
-    public char facing; // N/S/E/W
+    public char facing = 'E'; // N/S/E/W
     public Rectangle[] segments;
     final int BOARD_SIZE = 15;
 
@@ -26,13 +26,14 @@ public class Snake {
         segments[1].setFill(Color.BLUE);
         segments[2] = new Rectangle(45, 45);
         segments[2].setFill(Color.BLUE);
+        timer.start();
     }
 
     AnimationTimer timer = new AnimationTimer() {
+        @Override
         public void handle(long timestamp) {
             frameCounter++;
-            App app = new App();
-            facing = app.checkFacing();
+            facing = checkFacing();
 
             if (frameCounter == 100) {
                 switch (facing) {
@@ -67,9 +68,10 @@ public class Snake {
                     default:
                         break;
                 }
-                app.snakeMovement(indices);
+                move();
+                snakeMovement(indices, segments);
+                frameCounter = 0;
             }
-
         }
     };
 

@@ -16,7 +16,6 @@ public class App extends Application {
     GridPane gameBoard = new GridPane();
     final int BOARD_SIZE = 15;
     char keyPress;
-    Snake snake;
 
     @Override
     public void start(Stage stage) {
@@ -44,12 +43,15 @@ public class App extends Application {
         stage.setScene(scene);
         stage.show();
 
-        Snake snake = new Snake();
-        this.snake = snake;
-
-        gameBoard.add(snake.segments[0], 3, 7);
-        gameBoard.add(snake.segments[1], 2, 7);
-        gameBoard.add(snake.segments[2], 1, 7);
+        Rectangle snakeBuilder1 = new Rectangle(45, 45);
+        snakeBuilder1.setFill(Color.BLUE);
+        Rectangle snakeBuilder2 = new Rectangle(45, 45);
+        snakeBuilder2.setFill(Color.BLUE);
+        Rectangle snakeBuilder3 = new Rectangle(45, 45);
+        snakeBuilder3.setFill(Color.BLUE);
+        gameBoard.add(snakeBuilder1, 3, 7);
+        gameBoard.add(snakeBuilder2, 2, 7);
+        gameBoard.add(snakeBuilder3, 1, 7);
     }
 
     public static void gameOver(Scene scene) {
@@ -95,7 +97,7 @@ public class App extends Application {
         return keyPress;
     }
 
-    public void snakeMovement(int[][] indices) {
+    public void snakeMovement(int[][] indices, Rectangle[] segments) {
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
 
@@ -114,8 +116,8 @@ public class App extends Application {
                 GridPane.setColumnIndex(tile, j);
             }
         }
-        for (int[] i : indices) {
-            gameBoard.add(snake.segments[], 1, 2);
+        for (int i = 0; i < indices.length; i++) {
+            gameBoard.add(segments[i], indices[i][0], indices[i][1]);
         }
     }
 
