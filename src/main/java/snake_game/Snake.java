@@ -13,12 +13,8 @@ public class Snake {
     public char facing; // N/S/E/W
     public Rectangle[] segments;
     final int BOARD_SIZE = 15;
-    BooleanProperty upPressed = new SimpleBooleanProperty();
-    BooleanProperty downPressed = new SimpleBooleanProperty();
-    BooleanProperty leftPressed = new SimpleBooleanProperty();
-    BooleanProperty rightPressed = new SimpleBooleanProperty();
 
-    BooleanBinding keyDown = upPressed.or(downPressed).or(leftPressed).or(rightPressed);
+    public int frameCounter = 0;
 
     public Snake() {
         indices = new int[][] {{7, 3}, {7, 2}, {7, 1}};
@@ -34,43 +30,32 @@ public class Snake {
 
     AnimationTimer timer = new AnimationTimer() {
         public void handle(long timestamp) {
-            if (upPressed.get()) {
-                
-            }
+            frameCounter++;
+            App app = new App();
+            facing = app.checkFacing();
 
-            if (downPressed.get()) {
-                
-            }
+            switch (facing) {
+                case 'N':
+                    
+                    break;
+                case 'S':
+                    
+                    break;
+                case 'E':
+                    
+                    break;
+                case 'W':
+                    
+                    break;
+                default:
+                    break;
+                }
 
-            if (leftPressed.get()) {
-                
-            }
-
-            if (rightPressed.get()) {
-                
-            }
         }
     };
-    
-    public void checkFacing(GridPane grid) {
-        grid.setOnKeyPressed(e -> {
-            switch (e.getCode()) {
-            case UP:
-                facing = 'N';
-                break;
-            case DOWN:
-                facing = 'S';
-                break;
-            case LEFT:
-                facing = 'W';
-                break;
-            case RIGHT:
-                facing = 'E';
-                break;
-            default:
-                break;
-            }
-         });
+
+    public void handleMovement() {
+
     }
 
     public int[][] move() {

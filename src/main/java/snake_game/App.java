@@ -2,6 +2,8 @@ package snake_game;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -12,6 +14,7 @@ import javafx.stage.Stage;
 public class App extends Application {
 
     GridPane gameBoard = new GridPane();
+    char keyPress;
 
     @Override
     public void start(Stage stage) {
@@ -71,6 +74,24 @@ public class App extends Application {
 
         GridPane.setRowIndex(tile, row);
         GridPane.setColumnIndex(tile, column);
+    }
+
+    public Character checkFacing() {
+        gameBoard.setOnKeyPressed((KeyEvent e) -> {
+            if (e.getCode() == KeyCode.UP) {
+                keyPress = 'N';
+            }
+            if (e.getCode() == KeyCode.DOWN) {
+                keyPress = 'S';
+            }
+            if (e.getCode() == KeyCode.LEFT) {
+                keyPress = 'E';
+            }
+            if (e.getCode() == KeyCode.RIGHT) {
+                keyPress = 'W';
+            }
+        });
+        return keyPress;
     }
 
     public static void main(String[] args) {
