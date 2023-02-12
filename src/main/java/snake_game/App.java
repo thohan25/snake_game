@@ -14,14 +14,14 @@ import javafx.stage.Stage;
 public class App extends Application {
 
     GridPane gameBoard = new GridPane();
+    final int BOARD_SIZE = 15;
     char keyPress;
+    Snake snake;
 
     @Override
     public void start(Stage stage) {
         SystemInfo.javaVersion();
         SystemInfo.javafxVersion();
-
-        final int BOARD_SIZE = 15;
 
         Scene scene = new Scene(gameBoard, 675, 675);
         for (int i = 0; i < BOARD_SIZE; i++) {
@@ -45,6 +45,7 @@ public class App extends Application {
         stage.show();
 
         Snake snake = new Snake();
+        this.snake = snake;
 
         gameBoard.add(snake.segments[0], 3, 7);
         gameBoard.add(snake.segments[1], 2, 7);
@@ -92,6 +93,30 @@ public class App extends Application {
             }
         });
         return keyPress;
+    }
+
+    public void snakeMovement(int[][] indices) {
+        for (int i = 0; i < BOARD_SIZE; i++) {
+            for (int j = 0; j < BOARD_SIZE; j++) {
+
+                Rectangle tile = new Rectangle(45, 45);
+                if (false) { //check whether an apple is in this space
+                    tile.setFill(Color.RED);
+                } else if (i % 2 == j % 2) {
+                    tile.setFill(Color.GREENYELLOW);
+                } else {
+                    tile.setFill(Color.GREEN);
+                }
+                
+                gameBoard.getChildren().addAll(tile);
+
+                GridPane.setRowIndex(tile, i);
+                GridPane.setColumnIndex(tile, j);
+            }
+        }
+        for (int[] i : indices) {
+            gameBoard.add(snake.segments[], 1, 2);
+        }
     }
 
     public static void main(String[] args) {

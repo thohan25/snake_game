@@ -34,29 +34,44 @@ public class Snake {
             App app = new App();
             facing = app.checkFacing();
 
-            switch (facing) {
-                case 'N':
-                    
-                    break;
-                case 'S':
-                    
-                    break;
-                case 'E':
-                    
-                    break;
-                case 'W':
-                    
-                    break;
-                default:
-                    break;
+            if (frameCounter == 100) {
+                switch (facing) {
+                    case 'N':
+                        indices[0][0]--;
+                        for (int i = indices.length-1; i > 0; i--) {
+                            indices[i][0] = indices[i-1][0];
+                            indices[i][1] = indices[i-1][1];
+                        }
+                        break;
+                    case 'S':
+                        indices[0][0]++;
+                        for (int i = indices.length-1; i > 0; i--) {
+                            indices[i][0] = indices[i-1][0];
+                            indices[i][1] = indices[i-1][1];
+                        }
+                        break;
+                    case 'E':
+                        indices[0][1]++;
+                        for (int i = indices.length-1; i > 0; i--) {
+                            indices[i][0] = indices[i-1][0];
+                            indices[i][1] = indices[i-1][1];
+                        }
+                        break;
+                    case 'W':
+                        indices[0][1]--;
+                        for (int i = indices.length-1; i > 0; i--) {
+                            indices[i][0] = indices[i-1][0];
+                            indices[i][1] = indices[i-1][1];
+                        }
+                        break;
+                    default:
+                        break;
                 }
+                app.snakeMovement(indices);
+            }
 
         }
     };
-
-    public void handleMovement() {
-
-    }
 
     public int[][] move() {
         for (int i = 0; i < indices.length-1; i++) {
