@@ -19,65 +19,33 @@ public class Snake extends App {
     public Snake() {
         indices = new int[][] {{7, 3}, {7, 2}, {7, 1}};
         segments = new Rectangle[3];
-
         segments[0] = new Rectangle(45, 45);
         segments[0].setFill(Color.BLUE);
         segments[1] = new Rectangle(45, 45);
         segments[1].setFill(Color.BLUE);
         segments[2] = new Rectangle(45, 45);
         segments[2].setFill(Color.BLUE);
-        timer.start();
     }
 
-    AnimationTimer timer = new AnimationTimer() {
-        @Override
-        public void handle(long timestamp) {
-            frameCounter++;
-            facing = checkFacing();
+    public void update() {
+        new AnimationTimer() {
+            @Override
+            public void handle(long timestamp) {
+                frameCounter++;
+                facing = checkFacing();
 
-            if (frameCounter == 100) {
-                switch (facing) {
-                    case 'N':
-                        indices[0][0]--;
-                        for (int i = indices.length-1; i > 0; i--) {
-                            indices[i][0] = indices[i-1][0];
-                            indices[i][1] = indices[i-1][1];
-                        }
-                        break;
-                    case 'S':
-                        indices[0][0]++;
-                        for (int i = indices.length-1; i > 0; i--) {
-                            indices[i][0] = indices[i-1][0];
-                            indices[i][1] = indices[i-1][1];
-                        }
-                        break;
-                    case 'E':
-                        indices[0][1]++;
-                        for (int i = indices.length-1; i > 0; i--) {
-                            indices[i][0] = indices[i-1][0];
-                            indices[i][1] = indices[i-1][1];
-                        }
-                        break;
-                    case 'W':
-                        indices[0][1]--;
-                        for (int i = indices.length-1; i > 0; i--) {
-                            indices[i][0] = indices[i-1][0];
-                            indices[i][1] = indices[i-1][1];
-                        }
-                        break;
-                    default:
-                        break;
+                if (frameCounter == 100) {
+                    move();
+                    snakeMovement(indices, segments);
+                    frameCounter = 0;
                 }
-                move();
-                snakeMovement(indices, segments);
-                frameCounter = 0;
             }
-        }
-    };
+        }.start();
+    }
 
-    public int[][] move() {
-        for (int i = 0; i < indices.length-1; i++) {
-            indices[i] = indices[i+1]; // moves all segments up by one
+    public void move() {
+        for (int i = indices.length-1; i > 0; i--) {
+            indices[i] = indices[i-1]; // moves all segments up by one
         }
 
         switch (facing) {
@@ -89,7 +57,6 @@ public class Snake extends App {
         } // moves the head in the direction facing
 
         // Board.snakePositions(this);
-        return indices;
     }
 
     public void eatingApple(int row, int column) {
