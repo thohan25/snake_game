@@ -51,8 +51,6 @@ public class Snake extends App {
             indices[i][1] = indices[i-1][1];
         }
         
-        System.out.println(keyPress);
-
         if (keyPress == 'N' && trueDirection == 'S') {
             keyPress = 'S';  
         } else if (keyPress == 'S' && trueDirection == 'N') {

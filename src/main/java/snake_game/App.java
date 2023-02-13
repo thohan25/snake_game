@@ -1,5 +1,7 @@
 package snake_game;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 
 import javafx.application.Application;
@@ -24,7 +26,7 @@ public class App extends Application {
     Snake snake;
     Scene scene = new Scene(gameBoard, 675, 675);
     public static Stage gameStage;
-    
+    public static ArrayList<int[]> apples = new ArrayList<>();
 
     @Override
     public void start(Stage stage) {
@@ -70,7 +72,6 @@ public class App extends Application {
         createApple();
         
         scene.setOnKeyPressed((KeyEvent e) -> {
-            System.out.println("foundkeypress");    
             if (e.getCode().equals(KeyCode.UP)) {
                 keyPress = 'N';
             }
@@ -115,19 +116,30 @@ public class App extends Application {
 
         gameBoard.getChildren().clear();
 
+        for (int[] s : apples)
+        {
+            System.out.println(Arrays.toString(s));
+        }
+
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
                 for (int[] k : indices) {
                     Rectangle builder = new Rectangle(45, 45);
+                    Boolean apple = false;
                     
-                    // } else if () { //check whether an apple is in this space
-                    //     builder.setFill(Color.RED);
-                    //     gameBoard.add(builder, i, j);
-                    
-                    if (i % 2 == j % 2) {
+                    for (int[] l : apples) {
+                        if (l[0] == i && l[1] == j) { 
+                            builder.setFill(Color.RED);
+                            gameBoard.add(builder, i, j);
+                            apple = true;
+                            System.out.println("occurred");
+                        }
+                    }
+
+                    if (!apple && i % 2 == j % 2) {
                         builder.setFill(Color.GREENYELLOW);
                         gameBoard.add(builder, i, j);
-                    } else {
+                    } else if (!apple) {
                         builder.setFill(Color.GREEN);
                         gameBoard.add(builder, i, j);
                     }
@@ -141,7 +153,6 @@ public class App extends Application {
         gameStage.show();
 
         scene.setOnKeyPressed((KeyEvent e) -> {
-            System.out.println("foundkeypress");    
             if (e.getCode().equals(KeyCode.UP)) {
                 keyPress = 'N';
             }
@@ -175,7 +186,13 @@ public class App extends Application {
             }
         }
         
-        Apple apple = new Apple(rand1, rand2);
+        apples.add(new int[]{rand1, rand2});
+
+        for (int[] s : apples)
+        {
+            System.out.println(Arrays.toString(s));
+        }
+
     }
 
     public static void main(String[] args) {
