@@ -1,12 +1,15 @@
 package snake_game;
 
 import javafx.application.Application;
+import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 /**
  * JavaFX App
@@ -103,23 +106,25 @@ public class App extends Application {
 
     public void snakeMovement(int[][] indices, Rectangle[] segments) {
         System.out.println("Reached movement");
-        gameBoard.getChildren().clear();
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
 
-                Rectangle tile = new Rectangle(45, 45);
-                if (false) { //check whether an apple is in this space
-                    tile.setFill(Color.RED);
-                } else if (i % 2 == j % 2) {
-                    tile.setFill(Color.GREENYELLOW);
-                } else {
-                    tile.setFill(Color.GREEN);
+                for (int[] k : indices) {
+                    Rectangle builder = new Rectangle(45, 45);
+                    if (k.equals(new int[]{i, j})) {
+                        builder.setFill(Color.BLUE);
+                        gameBoard.add(builder, i, j);
+                    } else if (false) { //check whether an apple is in this space
+                        builder.setFill(Color.RED);
+                        gameBoard.add(builder, i, j);
+                    } else if (i % 2 == j % 2) {
+                        builder.setFill(Color.GREENYELLOW);
+                        gameBoard.add(builder, i, j);
+                    } else {
+                        builder.setFill(Color.GREEN);
+                        gameBoard.add(builder, i, j);
+                    }
                 }
-                
-                gameBoard.getChildren().addAll(tile);
-
-                GridPane.setRowIndex(tile, i);
-                GridPane.setColumnIndex(tile, j);
             }
         }
         for (int i = 0; i < indices.length; i++) {
