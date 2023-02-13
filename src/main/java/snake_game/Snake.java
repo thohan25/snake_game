@@ -1,10 +1,13 @@
 package snake_game;
+import java.util.Arrays;
+
 import javafx.animation.AnimationTimer;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 import javafx.scene.paint.Color;
 
 public class Snake extends App {
@@ -13,10 +16,12 @@ public class Snake extends App {
     public char facing = 'E'; // N/S/E/W
     public Rectangle[] segments;
     final int BOARD_SIZE = 15;
+    public Stage gameStage;
 
     public int frameCounter = 0;
 
-    public Snake() {
+    public Snake(Stage stage) {
+        gameStage = stage;
         indices = new int[][] {{7, 3}, {7, 2}, {7, 1}};
         segments = new Rectangle[3];
         segments[0] = new Rectangle(45, 45);
@@ -36,7 +41,7 @@ public class Snake extends App {
 
                 if (frameCounter == 100) {
                     move();
-                    snakeMovement(indices, segments);
+                    snakeMovement(indices, segments, gameStage);
                     frameCounter = 0;
                 }
             }
@@ -48,21 +53,20 @@ public class Snake extends App {
             indices[i][0] = indices[i-1][0]; // moves all segments up by one
             indices[i][1] = indices[i-1][1];
         }
-
-        switch (facing) {
-            case 'N': 
-                indices[0] = new int[] {indices[0][0]--, indices[0][1]};
-                break;
-            case 'S': 
-                indices[0] = new int[] {indices[0][0]++, indices[0][1]};
-                break;
-            case 'E': 
-                indices[0] = new int[] {indices[0][0], indices[0][1]++};
-                break;
-            case 'W': 
-                indices[0] = new int[] {indices[0][0], indices[0][1]--};
-                break;
-        } // moves the head in the direction facing
+        if (facing == 'N') {
+            indices[0][0]--;    
+        } else if (facing == 'S') {
+            indices[0][0]++;
+        } else if (facing == 'E') {
+            indices[0][1]++;        
+        } else if (facing == 'W') {
+            indices[0][1]--;    
+        }
+        for (int[] i : indices) {
+            System.out.println(Arrays.toString(i));
+        }
+        
+        // moves the head in the direction facing
 
         // Board.snakePositions(this);
     }

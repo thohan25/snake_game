@@ -18,15 +18,15 @@ public class App extends Application {
 
     GridPane gameBoard = new GridPane();
     final int BOARD_SIZE = 15;
-    char keyPress;
+    char keyPress = 'E';
     Snake snake;
+    Scene scene = new Scene(gameBoard, 675, 675);
 
     @Override
     public void start(Stage stage) {
         SystemInfo.javaVersion();
         SystemInfo.javafxVersion();
 
-        Scene scene = new Scene(gameBoard, 675, 675);
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
 
@@ -43,6 +43,7 @@ public class App extends Application {
                 GridPane.setColumnIndex(tile, j);
             }
         }
+        
         stage.setTitle("Snake Game");
         stage.setScene(scene);
         stage.show();
@@ -57,7 +58,7 @@ public class App extends Application {
         gameBoard.add(snakeBuilder2, 2, 7);
         gameBoard.add(snakeBuilder3, 1, 7);
 
-        snake = new Snake();
+        snake = new Snake(stage);
         snake.update();
     }
 
@@ -104,14 +105,16 @@ public class App extends Application {
         return keyPress;
     }
 
-    public void snakeMovement(int[][] indices, Rectangle[] segments) {
+    public void snakeMovement(int[][] indices, Rectangle[] segments, Stage stage) {
+        
         System.out.println("Reached movement");
+        gameBoard.getChildren().clear();
+
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
-
                 for (int[] k : indices) {
                     Rectangle builder = new Rectangle(45, 45);
-                    if (k[0] == i && k[1] == j) {
+                    if (k[0] == j && k[1] == i) {
                         System.out.println("snakebuild");
                         builder.setFill(Color.BLUE);
                         gameBoard.add(builder, i, j);
@@ -128,9 +131,11 @@ public class App extends Application {
                 }
             }
         }
-        for (int i = 0; i < indices.length; i++) {
-            gameBoard.add(segments[i], indices[i][0], indices[i][1]);
+        for (int i = 1; i < indices.length; i++) {
+            gameBoard.add(segments[i], indices[i][1], indices[i][0]);
         }
+        stage.setScene(scene);
+        stage.show();
     }
 
     public static void main(String[] args) {
