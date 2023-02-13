@@ -111,7 +111,8 @@ public class App extends Application {
 
                 for (int[] k : indices) {
                     Rectangle builder = new Rectangle(45, 45);
-                    if (k.equals(new int[]{i, j})) {
+                    if (k[0] == i && k[1] == j) {
+                        System.out.println("snakebuild");
                         builder.setFill(Color.BLUE);
                         gameBoard.add(builder, i, j);
                     } else if (false) { //check whether an apple is in this space

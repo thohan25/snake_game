@@ -45,15 +45,23 @@ public class Snake extends App {
 
     public void move() {
         for (int i = indices.length-1; i > 0; i--) {
-            indices[i] = indices[i-1]; // moves all segments up by one
+            indices[i][0] = indices[i-1][0]; // moves all segments up by one
+            indices[i][1] = indices[i-1][1];
         }
 
         switch (facing) {
-            case 'N': indices[indices.length-1] = new int[] {indices[indices.length-2][0]--, indices[indices.length-2][1]};
-            case 'S': indices[indices.length-1] = new int[] {indices[indices.length-2][0]++, indices[indices.length-2][1]};
-            case 'E': indices[indices.length-1] = new int[] {indices[indices.length-2][0], indices[indices.length-2][1]++};
-            case 'W': indices[indices.length-1] = new int[] {indices[indices.length-2][0], indices[indices.length-2][1]--};
-            break;
+            case 'N': 
+                indices[0] = new int[] {indices[0][0]--, indices[0][1]};
+                break;
+            case 'S': 
+                indices[0] = new int[] {indices[0][0]++, indices[0][1]};
+                break;
+            case 'E': 
+                indices[0] = new int[] {indices[0][0], indices[0][1]++};
+                break;
+            case 'W': 
+                indices[0] = new int[] {indices[0][0], indices[0][1]--};
+                break;
         } // moves the head in the direction facing
 
         // Board.snakePositions(this);
