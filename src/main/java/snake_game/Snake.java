@@ -12,7 +12,7 @@ import javafx.scene.paint.Color;
 
 public class Snake extends App {
 
-    public int[][] indices; // x and y coordinates of each snake body segment, tail comes first
+    public int[][] indices; // x and y coordinates of each snake body segment, head comes first
     public Rectangle[] segments;
     final int BOARD_SIZE = 15;
 
@@ -37,15 +37,18 @@ public class Snake extends App {
                 frameCounter++;
 
                 if (frameCounter == 60) {
-                    move();
-                    snakeMovement(indices, segments);
+                    int[] tail = move();
+                    snakeMovement(indices, segments, tail);
                     frameCounter = 0;
                 }
             }
         }.start();
     }
 
-    public void move() {
+    public int[] move() {
+
+        int[] tail = new int[]{indices[indices.length-1][0], indices[indices.length-1][1]};
+
         for (int i = indices.length-1; i > 0; i--) {
             indices[i][0] = indices[i-1][0]; // moves all segments up by one
             indices[i][1] = indices[i-1][1];
@@ -75,19 +78,30 @@ public class Snake extends App {
             trueDirection = 'W';   
         }
         
-        // moves the head in the direction facing
-
-        // Board.snakePositions(this);
+        return tail;
     }
 
-    public void eatingApple(int row, int column) {
-        int[][] newIndices = new int[indices.length+1][];
-        for (int i = 0; i < BOARD_SIZE; i++) {
-            for (int j = 0; j < BOARD_SIZE; j++) {
-                newIndices[i][j] = indices[i][j];
-            }
+    public void eatingApple(int[] tail) {
+        System.out.println("called");
+        int[][] newIndices = new int[indices.length+1][2];
+        int counter = 0;
+        for (int[] i : indices) {
+            newIndices[counter] = i;
+            counter++;
         }
-        newIndices[indices.length-1][0] = row;
-        newIndices[indices.length-1][1] = column;
+        newIndices[newIndices.length-1][0] = tail[0];
+        newIndices[newIndices.length-1][1] = tail[1];
+        indices = newIndices;
+
+        Rectangle[] newSegments = new Rectangle[segments.length+1];
+        counter = 0;
+        for (Rectangle r : segments) {
+            newSegments[counter] = r;
+            counter++;
+        }
+        Rectangle builder = new Rectangle(45, 45);
+        builder.setFill(Color.BLUE);
+        newSegments[newSegments.length-1] = builder;
+        segments = newSegments;
     }
 }

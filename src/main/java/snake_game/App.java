@@ -23,7 +23,7 @@ public class App extends Application {
     GridPane gameBoard = new GridPane();
     final int BOARD_SIZE = 15;
     public static char keyPress = 'E';
-    Snake snake;
+    public static Snake snake = new Snake();
     Scene scene = new Scene(gameBoard, 675, 675);
     public static Stage gameStage;
     public static ArrayList<int[]> apples = new ArrayList<>();
@@ -112,7 +112,7 @@ public class App extends Application {
         GridPane.setColumnIndex(tile, column);
     }
 
-    public void snakeMovement(int[][] indices, Rectangle[] segments) {
+    public void snakeMovement(int[][] indices, Rectangle[] segments, int[] tail) {
 
         gameBoard.getChildren().clear();
 
@@ -123,32 +123,34 @@ public class App extends Application {
 
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
-                for (int[] k : indices) {
-                    Rectangle builder = new Rectangle(45, 45);
-                    Boolean apple = false;
-                    
-                    for (int[] l : apples) {
-                        if (l[0] == i && l[1] == j) { 
-                            builder.setFill(Color.RED);
-                            gameBoard.add(builder, i, j);
-                            apple = true;
-                            System.out.println("occurred");
+                Rectangle builder = new Rectangle(45, 45);
+                Boolean apple = false;
+                
+                for (int[] l : apples) {
+                    if (l[0] == i && l[1] == j) { 
+                        builder.setFill(Color.RED);
+                        gameBoard.add(builder, i, j);
+                        apple = true;
+                        if (l[1] == indices[0][0] && l[0] == indices[0][1]) {
+                            snake.eatingApple(tail);
                         }
                     }
+                }
 
-                    if (!apple && i % 2 == j % 2) {
-                        builder.setFill(Color.GREENYELLOW);
-                        gameBoard.add(builder, i, j);
-                    } else if (!apple) {
-                        builder.setFill(Color.GREEN);
-                        gameBoard.add(builder, i, j);
-                    }
+                if (!apple && i % 2 == j % 2) {
+                    builder.setFill(Color.GREENYELLOW);
+                    gameBoard.add(builder, i, j);
+                } else if (!apple) {
+                    builder.setFill(Color.GREEN);
+                    gameBoard.add(builder, i, j);
                 }
             }
         }
+
         for (int i = 0; i < indices.length; i++) {
             gameBoard.add(segments[i], indices[i][1], indices[i][0]);
         }
+
         gameStage.setScene(scene);
         gameStage.show();
 
