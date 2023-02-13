@@ -1,18 +1,15 @@
 package snake_game;
-public class Apple {
+public class Apple extends App {
 
     private int row;
     private int column;
-    private char[][] board;
 
-    public Apple(int r, int c, char[][] b) {
+    public Apple(int r, int c) {
         row = r;
         column = c;
-        board = b;
     }
 
     public void eaten() {
-        board[row][column] = 'e';
         Snake.eatingApple(row, column);
     }
     

@@ -1,5 +1,7 @@
 package snake_game;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
@@ -22,6 +24,7 @@ public class App extends Application {
     Snake snake;
     Scene scene = new Scene(gameBoard, 675, 675);
     public static Stage gameStage;
+    
 
     @Override
     public void start(Stage stage) {
@@ -63,7 +66,8 @@ public class App extends Application {
 
         snake = new Snake();
         snake.update();
-        
+
+        createApple();
         
         scene.setOnKeyPressed((KeyEvent e) -> {
             System.out.println("foundkeypress");    
@@ -135,6 +139,43 @@ public class App extends Application {
         }
         gameStage.setScene(scene);
         gameStage.show();
+
+        scene.setOnKeyPressed((KeyEvent e) -> {
+            System.out.println("foundkeypress");    
+            if (e.getCode().equals(KeyCode.UP)) {
+                keyPress = 'N';
+            }
+            if (e.getCode().equals(KeyCode.DOWN)) {
+                keyPress = 'S';
+            }
+            if (e.getCode().equals(KeyCode.RIGHT)) {
+                keyPress = 'E';
+            }
+            if (e.getCode().equals(KeyCode.LEFT)) {
+                keyPress = 'W';
+            }
+        });
+    }
+
+    public void createApple() {
+        int rand1;
+        int rand2;
+        int checker = 0;
+
+        rand1 = ThreadLocalRandom.current().nextInt(0, BOARD_SIZE + 1);
+        rand2 = ThreadLocalRandom.current().nextInt(0, BOARD_SIZE + 1);
+
+        while (checker < 2) {
+            for (int[] i : snake.indices) {
+                if (i.equals(new int[]{rand1, rand2})) {
+                    rand1 = ThreadLocalRandom.current().nextInt(0, BOARD_SIZE + 1);
+                    rand2 = ThreadLocalRandom.current().nextInt(0, BOARD_SIZE + 1);
+                }
+                checker++;
+            }
+        }
+        
+        Apple apple = new Apple(rand1, rand2);
     }
 
     public static void main(String[] args) {

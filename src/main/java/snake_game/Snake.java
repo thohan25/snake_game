@@ -13,10 +13,11 @@ import javafx.scene.paint.Color;
 public class Snake extends App {
 
     public int[][] indices; // x and y coordinates of each snake body segment, tail comes first
-        public Rectangle[] segments;
+    public Rectangle[] segments;
     final int BOARD_SIZE = 15;
 
     public int frameCounter = 0;
+    private static char trueDirection = 'E';
 
     public Snake() {
         indices = new int[][] {{7, 3}, {7, 2}, {7, 1}};
@@ -35,7 +36,7 @@ public class Snake extends App {
             public void handle(long timestamp) {
                 frameCounter++;
 
-                if (frameCounter == 100) {
+                if (frameCounter == 60) {
                     move();
                     snakeMovement(indices, segments);
                     frameCounter = 0;
@@ -49,15 +50,31 @@ public class Snake extends App {
             indices[i][0] = indices[i-1][0]; // moves all segments up by one
             indices[i][1] = indices[i-1][1];
         }
+        
         System.out.println(keyPress);
+
+        if (keyPress == 'N' && trueDirection == 'S') {
+            keyPress = 'S';  
+        } else if (keyPress == 'S' && trueDirection == 'N') {
+            keyPress = 'N';  
+        } else if (keyPress == 'E' && trueDirection == 'W') {
+            keyPress = 'W';    
+        } else if (keyPress == 'W' && trueDirection == 'E') {
+            keyPress = 'E';   
+        }
+
         if (keyPress == 'N') {
-            indices[0][0]--;    
+            indices[0][0]--;
+            trueDirection = 'N';    
         } else if (keyPress == 'S') {
             indices[0][0]++;
+            trueDirection = 'S';  
         } else if (keyPress == 'E') {
-            indices[0][1]++;        
+            indices[0][1]++;      
+            trueDirection = 'E';    
         } else if (keyPress == 'W') {
-            indices[0][1]--;    
+            indices[0][1]--;  
+            trueDirection = 'W';   
         }
         
         // moves the head in the direction facing
