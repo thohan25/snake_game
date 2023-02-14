@@ -1,11 +1,7 @@
 package snake_game;
 import java.util.Arrays;
-import java.util.Timer;
 
 import javafx.animation.AnimationTimer;
-import javafx.beans.binding.BooleanBinding;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -20,6 +16,7 @@ public class Snake extends App {
     public int frameCounter = 0;
     private static char trueDirection = 'E';
     public static AnimationTimer myTimer;
+    private static int interval = 0;
 
     public Snake() {
         indices = new int[][] {{7, 3}, {7, 2}, {7, 1}};
@@ -43,7 +40,11 @@ public class Snake extends App {
         public void handle(long timestamp) {
             frameCounter++;
 
-            if (frameCounter == 45) {
+            if (interval > 15) {
+                interval = 15;
+            }
+
+            if (frameCounter == (45 - interval * 2)) {
                 int[] tail = move();
                 snakeMovement(indices, segments, tail, myTimer);
                 frameCounter = 0;
@@ -88,22 +89,28 @@ public class Snake extends App {
     }
 
     public void eatingApple(int[] tail) {
+        interval++;
+
         int[][] newIndices = new int[indices.length+1][2];
+
         int counter = 0;
         for (int[] i : indices) {
             newIndices[counter] = i;
             counter++;
         }
+
         newIndices[newIndices.length-1][0] = tail[0];
         newIndices[newIndices.length-1][1] = tail[1];
         indices = newIndices;
 
         Rectangle[] newSegments = new Rectangle[segments.length+1];
         counter = 0;
+
         for (Rectangle r : segments) {
             newSegments[counter] = r;
             counter++;
         }
+
         Rectangle builder = new Rectangle(45, 45);
         builder.setFill(Color.BLUE);
         newSegments[newSegments.length-1] = builder;

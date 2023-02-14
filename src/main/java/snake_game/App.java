@@ -2,7 +2,6 @@ package snake_game;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.concurrent.ThreadLocalRandom;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -188,19 +187,21 @@ public class App extends Application {
         apples.clear();
         int rand1;
         int rand2;
-        int checker = 0;
 
-        rand1 = ThreadLocalRandom.current().nextInt(0, BOARD_SIZE + 1);
-        rand2 = ThreadLocalRandom.current().nextInt(0, BOARD_SIZE + 1);
+        rand1 = (int)(Math.random() * BOARD_SIZE);
+        rand2 = (int)(Math.random() * BOARD_SIZE);
 
-        while (checker < 2) {
-            for (int[] i : snake.indices) {
-                if (i[0] == rand1 && i[1] == rand2) {
-                    rand1 = ThreadLocalRandom.current().nextInt(0, BOARD_SIZE + 1);
-                    rand2 = ThreadLocalRandom.current().nextInt(0, BOARD_SIZE + 1);
-                }
+        for (int[] i : snake.indices) {
+            if (i[0] == rand1 && i[1] == rand2) {
+                rand1 = (int)(Math.random() * BOARD_SIZE);
+                rand2 = (int)(Math.random() * BOARD_SIZE);
             }
-            checker++;
+        }
+        for (int[] i : snake.indices) {
+            if (i[0] == rand1 && i[1] == rand2) {
+                rand1 = (int)(Math.random() * BOARD_SIZE);
+                rand2 = (int)(Math.random() * BOARD_SIZE);
+            }
         }
         
         apples.add(new int[]{rand1, rand2});
