@@ -88,9 +88,10 @@ public class App extends Application {
         });
     }
 
-    public static void gameOver(Scene scene) {
+    public void gameOver(Scene scene) {
         System.out.println("over");
         scene.setFill(Color.WHITE);
+        gameBoard.getChildren().clear();
     }
 
     public void changeTile(char type, int row, int column) { // types: a = apple, e = empty
@@ -117,6 +118,12 @@ public class App extends Application {
     public void snakeMovement(int[][] indices, Rectangle[] segments, int[] tail, AnimationTimer timer) {
 
         gameBoard.getChildren().clear();
+
+        if (indices[0][0] < 0 || indices[0][0] >= BOARD_SIZE || indices[0][1] < 0 || indices[0][1] >= BOARD_SIZE) {
+            timer.stop();
+            gameOver(scene);
+            return;
+        }
 
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
@@ -156,6 +163,7 @@ public class App extends Application {
                 if (indices[i][0] == indices[j][0] && indices[i][1] == indices[j][1]) {
                     timer.stop();
                     gameOver(scene);
+                    return;
                 }
             }
         }
@@ -187,12 +195,12 @@ public class App extends Application {
 
         while (checker < 2) {
             for (int[] i : snake.indices) {
-                if (i.equals(new int[]{rand1, rand2})) {
+                if (i[0] == rand1 && i[1] == rand2) {
                     rand1 = ThreadLocalRandom.current().nextInt(0, BOARD_SIZE + 1);
                     rand2 = ThreadLocalRandom.current().nextInt(0, BOARD_SIZE + 1);
                 }
-                checker++;
             }
+            checker++;
         }
         
         apples.add(new int[]{rand1, rand2});
