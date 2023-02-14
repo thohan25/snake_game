@@ -1,5 +1,6 @@
 package snake_game;
 import java.util.Arrays;
+import java.util.Timer;
 
 import javafx.animation.AnimationTimer;
 import javafx.beans.binding.BooleanBinding;
@@ -18,6 +19,7 @@ public class Snake extends App {
 
     public int frameCounter = 0;
     private static char trueDirection = 'E';
+    public static AnimationTimer myTimer;
 
     public Snake() {
         indices = new int[][] {{7, 3}, {7, 2}, {7, 1}};
@@ -31,18 +33,22 @@ public class Snake extends App {
     }
 
     public void update() {
-        new AnimationTimer() {
-            @Override
-            public void handle(long timestamp) {
-                frameCounter++;
+        AnimationTimer timer = new MyTimer();
+        timer.start();
+        myTimer = timer;
+    }
 
-                if (frameCounter == 60) {
-                    int[] tail = move();
-                    snakeMovement(indices, segments, tail);
-                    frameCounter = 0;
-                }
+    private class MyTimer extends AnimationTimer {
+        @Override
+        public void handle(long timestamp) {
+            frameCounter++;
+
+            if (frameCounter == 45) {
+                int[] tail = move();
+                snakeMovement(indices, segments, tail, myTimer);
+                frameCounter = 0;
             }
-        }.start();
+        }
     }
 
     public int[] move() {
@@ -82,7 +88,6 @@ public class Snake extends App {
     }
 
     public void eatingApple(int[] tail) {
-        System.out.println("called");
         int[][] newIndices = new int[indices.length+1][2];
         int counter = 0;
         for (int[] i : indices) {
@@ -103,5 +108,7 @@ public class Snake extends App {
         builder.setFill(Color.BLUE);
         newSegments[newSegments.length-1] = builder;
         segments = newSegments;
+
+        createApple();
     }
 }

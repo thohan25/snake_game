@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
@@ -88,6 +89,7 @@ public class App extends Application {
     }
 
     public static void gameOver(Scene scene) {
+        System.out.println("over");
         scene.setFill(Color.WHITE);
     }
 
@@ -112,14 +114,9 @@ public class App extends Application {
         GridPane.setColumnIndex(tile, column);
     }
 
-    public void snakeMovement(int[][] indices, Rectangle[] segments, int[] tail) {
+    public void snakeMovement(int[][] indices, Rectangle[] segments, int[] tail, AnimationTimer timer) {
 
         gameBoard.getChildren().clear();
-
-        for (int[] s : apples)
-        {
-            System.out.println(Arrays.toString(s));
-        }
 
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
@@ -154,6 +151,15 @@ public class App extends Application {
         gameStage.setScene(scene);
         gameStage.show();
 
+        for (int i = 0; i < indices.length; i++) {
+            for (int j = i+1; j < indices.length; j++) {
+                if (indices[i][0] == indices[j][0] && indices[i][1] == indices[j][1]) {
+                    timer.stop();
+                    gameOver(scene);
+                }
+            }
+        }
+
         scene.setOnKeyPressed((KeyEvent e) -> {
             if (e.getCode().equals(KeyCode.UP)) {
                 keyPress = 'N';
@@ -171,6 +177,7 @@ public class App extends Application {
     }
 
     public void createApple() {
+        apples.clear();
         int rand1;
         int rand2;
         int checker = 0;
@@ -189,11 +196,6 @@ public class App extends Application {
         }
         
         apples.add(new int[]{rand1, rand2});
-
-        for (int[] s : apples)
-        {
-            System.out.println(Arrays.toString(s));
-        }
 
     }
 
