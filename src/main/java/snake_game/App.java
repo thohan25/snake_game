@@ -1,19 +1,20 @@
 package snake_game;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.collections.ObservableList;
-import javafx.scene.Node;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 /**
  * JavaFX App
@@ -90,6 +91,15 @@ public class App extends Application {
     public void gameOver(Scene scene) {
         System.out.println("over");
         scene.setFill(Color.WHITE);
+        Text text = new Text();
+        text.setText("GAME OVER.");
+        text.setX(60); 
+        text.setY(337);
+        text.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 80)); 
+        Group root = new Group(text);
+        Scene newScene = new Scene(root, 675, 675);
+        gameStage.setScene(newScene);
+        gameStage.show();
         gameBoard.getChildren().clear();
     }
 
